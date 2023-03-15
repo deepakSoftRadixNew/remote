@@ -11,8 +11,11 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:rfw/rfw.dart';
 
+// const String urlPrefix =
+//     'https://raw.githubusercontent.com/flutter/packages/main/packages/rfw/example/remote/remote_widget_libraries';
+
 const String urlPrefix =
-    'https://raw.githubusercontent.com/deepakSoftRadixNew/remote/main/remote_widget_libraries';
+    'https://www.dropbox.com/scl/fo/1ic6l61i0f6rz7b5hf73t/h?dl=0&rlkey=94bqn5kaojxmhtxlgcf5dv38g';
 
 void main() {
   runApp(const MaterialApp(home: Example()));
