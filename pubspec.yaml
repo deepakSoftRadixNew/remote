@@ -10,9 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_json_widget: ^1.0.2
-  path: ^1.8.0
-  path_provider: ^2.0.2
+  
+  path_provider: ^2.0.13
   rfw: ^1.0.8
 
 flutter:
