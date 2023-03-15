@@ -109,35 +109,39 @@ class _ExampleState extends State<Example> {
             // TODO(goderbauer): Make this const when this package requires Flutter 3.8 or later.
             // ignore: prefer_const_constructors
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: const <Widget>[
-                Padding(
-                    padding: EdgeInsets.only(right: 100.0),
-                    child: Text('REMOTE',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(letterSpacing: 12.0))),
-                Expanded(
-                    child: DecoratedBox(
-                        decoration: FlutterLogoDecoration(
-                            style: FlutterLogoStyle.horizontal))),
-                Padding(
-                    padding: EdgeInsets.only(left: 100.0),
-                    child: Text('WIDGETS',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(letterSpacing: 12.0))),
-                Spacer(),
-                Expanded(
-                    child: Text(
-                        'Every time this program is run, it fetches a new remote widgets library.',
-                        textAlign: TextAlign.center)),
-                Expanded(
-                    child: Text(
-                        'The interface that it shows is whatever library was last fetched.',
-                        textAlign: TextAlign.center)),
-                Expanded(
-                  child: Text(
-                      'Restart this application to see the new interface!',
-                      textAlign: TextAlign.center),
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: const <Widget>[
+                    Padding(
+                        padding: EdgeInsets.only(right: 100.0),
+                        child: Text('REMOTE',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(letterSpacing: 12.0))),
+                    Expanded(
+                        child: DecoratedBox(
+                            decoration: FlutterLogoDecoration(
+                                style: FlutterLogoStyle.horizontal))),
+                    Padding(
+                        padding: EdgeInsets.only(left: 100.0),
+                        child: Text('WIDGETS',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(letterSpacing: 12.0))),
+                    Spacer(),
+                    Expanded(
+                        child: Text(
+                            'Every time this program is run, it fetches a new remote widgets library.',
+                            textAlign: TextAlign.center)),
+                    Expanded(
+                        child: Text(
+                            'The interface that it shows is whatever library was last fetched.',
+                            textAlign: TextAlign.center)),
+                    Expanded(
+                      child: Text(
+                          'Restart this application to see the new interface!',
+                          textAlign: TextAlign.center),
+                    ),
+                  ],
                 ),
               ],
             ),

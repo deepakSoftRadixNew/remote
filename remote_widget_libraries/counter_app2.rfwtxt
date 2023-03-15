@@ -2,13 +2,13 @@ import core.widgets;
 import core.material;
 
 widget Counter = Container(
-  color: 0xFFFFFFFF,
+  color: 0xFF66AACC,
   child: Center(
     child: Button(
       child: Padding(
         padding: [ 20.0 ],
         child: Text(text: data.counter, style: {
-          fontSize: 20.0,
+          fontSize: 56.0,
           color: 0xFF000000,
         }),
       ),
