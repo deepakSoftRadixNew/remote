@@ -2,7 +2,7 @@ import core.widgets;
 import core.material;
 
 widget Counter = Scaffold(
-                       backgroundColor:0xFF66AACC,
+                       backgroundColor:0xFF65ABCC,
                        body: Column(
                          children: [SizedBox(height: 50), Center(child: Text(text:"data"))],
                        ),
