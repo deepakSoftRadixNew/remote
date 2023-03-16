@@ -50,8 +50,7 @@ class _ExampleState extends State<Example> {
   Future<void> _updateWidgets() async {
     final Directory home = await getApplicationSupportDirectory();
     final File settingsFile = File(path.join(home.path, 'settings.txt'));
-    String nextFile="";
-     nextFile = 'counter_app1.rfw';
+        String nextFile = 'counter_app1.rfw';
     if (settingsFile.existsSync()) {
       final String settings = await settingsFile.readAsString();
       if (settings == nextFile) {
