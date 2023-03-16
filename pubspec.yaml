@@ -11,8 +11,21 @@ dependencies:
   flutter:
     sdk: flutter
   
+  flutter_localizations:
+    sdk: flutter
+  flutter_svg: ^2.0.4
+  flutter_translate: ^4.0.3
   path_provider: ^2.0.13
   rfw: ^1.0.8
 
 flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
   uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/
+    - assets/icons/

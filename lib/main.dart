@@ -4,18 +4,28 @@
 
 // This file is hand-formatted.
 
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
+import 'package:remote/ui/constants.dart';
 import 'package:rfw/rfw.dart';
 
 const String urlPrefix =
     'https://raw.githubusercontent.com/deepakSoftRadixNew/remote/main/remote_widget_libraries';
 
 void main() {
-  runApp(const MaterialApp(home: Example()));
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: 'Flutter Auth UI',
+    theme: ThemeData(
+      primaryColor: kPrimaryColor,
+      scaffoldBackgroundColor: Colors.white,
+    ),
+    home: Example(),
+  ));
 }
 
 class Example extends StatefulWidget {
@@ -35,8 +45,10 @@ class _ExampleState extends State<Example> {
   @override
   void initState() {
     super.initState();
+    //using core widgets
     _runtime.update(
         const LibraryName(<String>['core', 'widgets']), createCoreWidgets());
+    //using core material
     _runtime.update(const LibraryName(<String>['core', 'material']),
         createMaterialWidgets());
     _updateData();
@@ -50,13 +62,15 @@ class _ExampleState extends State<Example> {
   Future<void> _updateWidgets() async {
     final Directory home = await getApplicationSupportDirectory();
     final File settingsFile = File(path.join(home.path, 'settings.txt'));
-        String nextFile = 'counter_app1.rfw';
-    if (settingsFile.existsSync()) {
-      final String settings = await settingsFile.readAsString();
-      if (settings == nextFile) {
-        nextFile = 'counter_app2.rfw';
-      }
-    }
+
+    log("settingsFile$settingsFile");
+    String nextFile = 'counter_app1.rfw';
+    // if (settingsFile.existsSync()) {
+    //   final String settings = await settingsFile.readAsString();
+    //   // if (settings == nextFile) {
+    //   //   nextFile = 'counter_app2.rfw';
+    //   // }
+    // }
     final File currentFile = File(path.join(home.path, 'current.rfw'));
     if (currentFile.existsSync()) {
       try {
@@ -81,7 +95,11 @@ class _ExampleState extends State<Example> {
 
   @override
   Widget build(BuildContext context) {
-    final Widget result;
+    return uiViewer();
+  }
+
+  AnimatedSwitcher uiViewer() {
+    Widget result = SizedBox();
     if (_ready) {
       result = RemoteWidget(
         runtime: _runtime,
@@ -98,58 +116,34 @@ class _ExampleState extends State<Example> {
     } else {
       // TODO(goderbauer): Make this const when this package requires Flutter 3.8 or later.
       // ignore: prefer_const_constructors
-      result = Material(
-        // TODO(goderbauer): Make this const when this package requires Flutter 3.8 or later.
-        // ignore: prefer_const_constructors
-        child: SafeArea(
-          // TODO(goderbauer): Make this const when this package requires Flutter 3.8 or later.
-          // ignore: prefer_const_constructors
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            // TODO(goderbauer): Make this const when this package requires Flutter 3.8 or later.
-            // ignore: prefer_const_constructors
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: const <Widget>[
-                Padding(
-                    padding: EdgeInsets.only(right: 100.0),
-                    child: Text('REMOTE',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(letterSpacing: 12.0))),
-                Expanded(
-                    child: DecoratedBox(
-                        decoration: FlutterLogoDecoration(
-                            style: FlutterLogoStyle.horizontal))),
-                Padding(
-                    padding: EdgeInsets.only(left: 100.0),
-                    child: Text('WIDGETS',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(letterSpacing: 12.0))),
-                Spacer(),
-                Expanded(
-                    child: Text(
-                        'Every time this program is run, it fetches a new remote widgets library.',
-                        textAlign: TextAlign.center)),
-                Expanded(
-                    child: Text(
-                        'The interface that it shows is whatever library was last fetched.',
-                        textAlign: TextAlign.center)),
-                Expanded(
-                  child: Text(
-                      'Restart this application to see the new interface!',
-                      textAlign: TextAlign.center),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
+      result = defaltUi(result: result);
     }
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 1250),
-      switchOutCurve: Curves.easeOut,
-      switchInCurve: Curves.easeOut,
+      duration: const Duration(milliseconds: 200),
+      // switchOutCurve: Curves.elasticInOut,
+      // switchInCurve: Curves.elasticInOut,
       child: result,
     );
+  }
+
+  Widget defaltUi({required Widget result}) {
+    // TODO(goderbauer): Make this const when this package requires Flutter 3.8 or later.
+    // ignore: prefer_const_constructors
+    result = Scaffold(
+      // TODO(goderbauer): Make this const when this package requires Flutter 3.8 or later.
+      // ignore: prefer_const_constructors
+      body: SafeArea(
+        // TODO(goderbauer): Make this const when this package requires Flutter 3.8 or later.
+        // ignore: prefer_const_constructors
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const <Widget>[
+            Center(child: Text('Loading.....', textAlign: TextAlign.center)),
+          ],
+        ),
+      ),
+    );
+    return result;
   }
 }
