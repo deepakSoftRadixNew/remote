@@ -4,16 +4,12 @@
 
 // This file is hand-formatted.
 
-import 'dart:io';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart';
 import 'package:remote/ui/constants.dart';
+import 'package:remote/widget/update_widgets.dart';
 import 'package:rfw/rfw.dart';
-
-const String urlPrefix =
-    'https://raw.githubusercontent.com/deepakSoftRadixNew/remote/main/remote_widget_libraries';
 
 void main() {
   runApp(MaterialApp(
@@ -35,61 +31,38 @@ class Example extends StatefulWidget {
 }
 
 class _ExampleState extends State<Example> {
-  final Runtime _runtime = Runtime();
+  final Runtime runtime = Runtime();
   final DynamicContent _data = DynamicContent();
 
-  bool _ready = false;
-  int _counter = 0;
-
+  bool isCustomUi = false;
+  // int _counter = 0;
+  String urlPrefix =
+      'https://raw.githubusercontent.com/deepakSoftRadixNew/remote/main/remote_widget_libraries';
   @override
   void initState() {
     super.initState();
     //using core widgets
-    _runtime.update(
+    runtime.update(
         const LibraryName(<String>['core', 'widgets']), createCoreWidgets());
     //using core material
-    _runtime.update(const LibraryName(<String>['core', 'material']),
+    runtime.update(const LibraryName(<String>['core', 'material']),
         createMaterialWidgets());
-    _updateData();
-    _updateWidgets();
+    // _updateData();
+    updateWidgets(
+      routeName: "counter_app1.rfw",
+      runtime: runtime,
+      urlPrefix: urlPrefix,
+    ).then((value) {
+      setState(() {
+        log("message$value");
+        isCustomUi = value;
+      });
+    });
   }
 
-  void _updateData() {
-    _data.update('counter', _counter.toString());
-  }
-
-  Future<void> _updateWidgets() async {
-    final Directory home = await getApplicationSupportDirectory();
-    final File settingsFile = File(path.join(home.path, 'settings.txt'));
-
-    String nextFile = 'counter_app1.rfw';
-    // if (settingsFile.existsSync()) {
-    //   final String settings = await settingsFile.readAsString();
-    //   // if (settings == nextFile) {
-    //   //   nextFile = 'counter_app2.rfw';
-    //   // }
-    // }
-    final File currentFile = File(path.join(home.path, 'current.rfw'));
-    if (currentFile.existsSync()) {
-      try {
-        _runtime.update(const LibraryName(<String>['main']),
-            decodeLibraryBlob(await currentFile.readAsBytes()));
-        setState(() {
-          _ready = true;
-        });
-      } catch (e, stack) {
-        FlutterError.reportError(
-            FlutterErrorDetails(exception: e, stack: stack));
-      }
-    }
-    print('Fetching: $urlPrefix/$nextFile'); // ignore: avoid_print
-    final HttpClientResponse client =
-        await (await HttpClient().getUrl(Uri.parse('$urlPrefix/$nextFile')))
-            .close();
-    await currentFile
-        .writeAsBytes(await client.expand((List<int> chunk) => chunk).toList());
-    await settingsFile.writeAsString(nextFile);
-  }
+  // void _updateData() {
+  //   _data.update('counter', _counter.toString());
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -98,41 +71,31 @@ class _ExampleState extends State<Example> {
 
   AnimatedSwitcher uiViewer() {
     Widget result = SizedBox();
-    if (_ready) {
+    if (isCustomUi) {
       result = RemoteWidget(
-        runtime: _runtime,
+        runtime: runtime,
         data: _data,
         widget: const FullyQualifiedWidgetName(
             LibraryName(<String>['main']), 'Counter'),
         onEvent: (String name, DynamicMap arguments) {
-          if (name == 'increment') {
-            _counter += 1;
-            _updateData();
-          }
+          // if (name == 'increment') {
+          //   _counter += 1;
+          //   _updateData();
+          // }
         },
       );
     } else {
-      // TODO(goderbauer): Make this const when this package requires Flutter 3.8 or later.
-      // ignore: prefer_const_constructors
-      result = defaltUi(result: result);
+      result = defaultUi(result: result);
     }
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 200),
-      // switchOutCurve: Curves.elasticInOut,
-      // switchInCurve: Curves.elasticInOut,
       child: result,
     );
   }
 
-  Widget defaltUi({required Widget result}) {
-    // TODO(goderbauer): Make this const when this package requires Flutter 3.8 or later.
-    // ignore: prefer_const_constructors
+  Widget defaultUi({required Widget result}) {
     result = Scaffold(
-      // TODO(goderbauer): Make this const when this package requires Flutter 3.8 or later.
-      // ignore: prefer_const_constructors
       body: SafeArea(
-        // TODO(goderbauer): Make this const when this package requires Flutter 3.8 or later.
-        // ignore: prefer_const_constructors
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
