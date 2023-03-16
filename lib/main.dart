@@ -11,8 +11,6 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:rfw/rfw.dart';
 
-
-
 const String urlPrefix =
     'https://raw.githubusercontent.com/deepakSoftRadixNew/remote/main/remote_widget_libraries';
 
