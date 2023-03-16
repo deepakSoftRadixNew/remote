@@ -76,7 +76,7 @@ class _ExampleState extends State<Example> {
         runtime: runtime,
         data: _data,
         widget: const FullyQualifiedWidgetName(
-            LibraryName(<String>['main']), 'Counter'),
+            LibraryName(<String>['main']), 'Alert2'),
         onEvent: (String name, DynamicMap arguments) {
           // if (name == 'increment') {
           //   _counter += 1;

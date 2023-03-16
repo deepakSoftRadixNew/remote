@@ -5,3 +5,8 @@ widget Alert = Text(
   text: 'Alert: Beware of phishing scams. Do not disclose your login credentials or personal information to anyone!',
   textDirection: "ltr",
 );
+
+widget Alert2 = Text(
+  text: 'Alert: Beware of phishing scams. Do not disclose your login credentials or personal information to anyone!',
+  textDirection: "ltr",
+);
