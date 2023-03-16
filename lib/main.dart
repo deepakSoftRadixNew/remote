@@ -4,13 +4,14 @@
 
 // This file is hand-formatted.
 
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:rfw/rfw.dart';
+
+
 
 const String urlPrefix =
     'https://raw.githubusercontent.com/deepakSoftRadixNew/remote/main/remote_widget_libraries';
@@ -40,27 +41,24 @@ class _ExampleState extends State<Example> {
         const LibraryName(<String>['core', 'widgets']), createCoreWidgets());
     _runtime.update(const LibraryName(<String>['core', 'material']),
         createMaterialWidgets());
-    // _updateData();
+    _updateData();
     _updateWidgets();
   }
 
-  // void _updateData() {
-  //   _data.update('counter', _counter.toString());
-  // }
+  void _updateData() {
+    _data.update('counter', _counter.toString());
+  }
 
   Future<void> _updateWidgets() async {
     final Directory home = await getApplicationSupportDirectory();
     final File settingsFile = File(path.join(home.path, 'settings.txt'));
-    final String settings = await settingsFile.readAsString();
-    log("message$settings");
-    // String nextFile = 'counter_app1.rfw';
-    // if (settingsFile.existsSync()) {
-    //   final String settings = await settingsFile.readAsString();
-    //   log("message$settings");
-    //   if (settings == nextFile) {
-    //     nextFile = 'counter_app2.rfw';
-    //   }
-    // }
+    String nextFile = 'counter_app1.rfw';
+    if (settingsFile.existsSync()) {
+      final String settings = await settingsFile.readAsString();
+      if (settings == nextFile) {
+        nextFile = 'counter_app2.rfw';
+      }
+    }
     final File currentFile = File(path.join(home.path, 'current.rfw'));
     if (currentFile.existsSync()) {
       try {
@@ -74,13 +72,13 @@ class _ExampleState extends State<Example> {
             FlutterErrorDetails(exception: e, stack: stack));
       }
     }
-    print('Fetching: $urlPrefix/$settings'); // ignore: avoid_print
+    print('Fetching: $urlPrefix/$nextFile'); // ignore: avoid_print
     final HttpClientResponse client =
-        await (await HttpClient().getUrl(Uri.parse('$urlPrefix/$settings')))
+        await (await HttpClient().getUrl(Uri.parse('$urlPrefix/$nextFile')))
             .close();
     await currentFile
         .writeAsBytes(await client.expand((List<int> chunk) => chunk).toList());
-    await settingsFile.writeAsString(settings);
+    await settingsFile.writeAsString(nextFile);
   }
 
   @override
@@ -93,10 +91,10 @@ class _ExampleState extends State<Example> {
         widget: const FullyQualifiedWidgetName(
             LibraryName(<String>['main']), 'Counter'),
         onEvent: (String name, DynamicMap arguments) {
-          // if (name == 'increment') {
-          //   _counter += 1;
-          //   _updateData();
-          // }
+          if (name == 'increment') {
+            _counter += 1;
+            _updateData();
+          }
         },
       );
     } else {
