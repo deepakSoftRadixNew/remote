@@ -1,9 +1,42 @@
+
 import core.widgets;
 import core.material;
+import local;
 
-widget Counter = Scaffold(
-                       backgroundColor:0xFF65ABCC,
-                       body: Column(
-                         children: [SizedBox(height: 500.00), Center(child: Text(text:"Vikasfggd"))],
-                       ),
-                     );
+widget Whatsnew = Column(
+  crossAxisAlignment: "start",
+  children: [
+    Text(
+      text: "Whatsnew title",
+      style: TextStyle(
+        fontWeight: "bold",
+        fontSize: 24,
+      ),
+    ),
+    SizedBox(height: 8),
+    Text(
+      text: "Whatsnew description",
+      style: TextStyle(
+        fontSize: 18,
+      ),
+    ),
+    SizedBox(height: 16),
+    image(
+      url: "https://www.gstatic.com/webp/gallery3/2.png",
+    ),
+    SizedBox(height: 16),
+    Row(
+      mainAxisAlignment: "spaceBetween",
+      children: [
+        ElevatedButton(
+          onPressed: null,
+          child: Text(text: 'SecondaryButton'),
+        ),
+        ElevatedButton(
+          onPressed: null,
+          child: Text(text: 'PrimaryButton'),
+        ),
+      ],
+    ),
+  ],
+);
