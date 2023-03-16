@@ -51,12 +51,12 @@ class _ExampleState extends State<Example> {
     final Directory home = await getApplicationSupportDirectory();
     final File settingsFile = File(path.join(home.path, 'settings.txt'));
     String nextFile = 'counter_app1.rfw';
-    // if (settingsFile.existsSync()) {
-    //   final String settings = await settingsFile.readAsString();
-    //   if (settings == nextFile) {
-    //     nextFile = 'counter_app2.rfw';
-    //   }
-    // }
+    if (settingsFile.existsSync()) {
+      final String settings = await settingsFile.readAsString();
+      if (settings == nextFile) {
+        nextFile = 'counter_app2.rfw';
+      }
+    }
     final File currentFile = File(path.join(home.path, 'current.rfw'));
     if (currentFile.existsSync()) {
       try {

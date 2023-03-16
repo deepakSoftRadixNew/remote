@@ -7,7 +7,7 @@ widget Counter = Scaffold(
     child: Column(
       mainAxisAlignment: "center",
       children: [
-        Text(text: ' times:', textAlign: "center"),
+        Text(text: 'timesfff:', textAlign: "center"),
         Text(text: data.counter, style: {
           fontSize: 36.0,
         }),
