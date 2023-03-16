@@ -4,7 +4,6 @@
 
 // This file is hand-formatted.
 
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -63,7 +62,6 @@ class _ExampleState extends State<Example> {
     final Directory home = await getApplicationSupportDirectory();
     final File settingsFile = File(path.join(home.path, 'settings.txt'));
 
-    log("settingsFile$settingsFile");
     String nextFile = 'counter_app1.rfw';
     // if (settingsFile.existsSync()) {
     //   final String settings = await settingsFile.readAsString();
