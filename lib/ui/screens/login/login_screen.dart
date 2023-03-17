@@ -11,12 +11,12 @@ class LoginScreen extends StatelessWidget {
     required this.runtime,
     required this.data,
   }) : super(key: key) {
-    runtime.update(localName, _createLocalWidgets());
-    runtime.update(
-        const LibraryName(<String>['core', 'widgets']), createCoreWidgets());
-    //using core material
-    runtime.update(const LibraryName(<String>['core', 'material']),
-        createMaterialWidgets());
+    // runtime.update(localName, _createLocalWidgets());
+    // runtime.update(
+    //     const LibraryName(<String>['core', 'widgets']), createCoreWidgets());
+    // //using core material
+    // runtime.update(const LibraryName(<String>['core', 'material']),
+    //     createMaterialWidgets());
   }
 
   @override
@@ -47,29 +47,29 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  static WidgetLibrary _createLocalWidgets() {
-    return LocalWidgetLibrary(<String, LocalWidgetBuilder>{
-      "LoginForm": (context, source) {
-        return LoginForm();
-      },
-    });
-  }
+  // static WidgetLibrary _createLocalWidgets() {
+  //   return LocalWidgetLibrary(<String, LocalWidgetBuilder>{
+  //     "LoginForm": (context, source) {
+  //       return LoginForm();
+  //     },
+  //   });
+  // }
 
-  static const LibraryName localName = LibraryName(<String>['local']);
-  static const LibraryName remoteName = LibraryName(<String>['remote']);
+  // static const LibraryName localName = LibraryName(<String>['local']);
+  // static const LibraryName remoteName = LibraryName(<String>['remote']);
 
-  Widget getWidget(
-      {required String name,
-      required Runtime runtime,
-      required DynamicContent data}) {
-    return RemoteWidget(
-      runtime: runtime,
-      data: data,
-      widget: const FullyQualifiedWidgetName(
-          LibraryName(<String>['main']), 'welcome'),
-      onEvent: (String name, DynamicMap arguments) {
-        debugPrint('user triggered event "$name" with data: $arguments');
-      },
-    );
-  }
+  // Widget getWidget(
+  //     {required String name,
+  //     required Runtime runtime,
+  //     required DynamicContent data}) {
+  //   return RemoteWidget(
+  //     runtime: runtime,
+  //     data: data,
+  //     widget: const FullyQualifiedWidgetName(
+  //         LibraryName(<String>['main']), 'welcome'),
+  //     onEvent: (String name, DynamicMap arguments) {
+  //       debugPrint('user triggered event "$name" with data: $arguments');
+  //     },
+  //   );
+  // }
 }

@@ -25,7 +25,7 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Background(
       child: SingleChildScrollView(
-          child: getWidget(name: "root", data: data, runtime: runtime)),
+          child: getWidget(name: "welcome", data: data, runtime: runtime)),
     );
   }
 
@@ -54,8 +54,7 @@ class WelcomeScreen extends StatelessWidget {
     return RemoteWidget(
       runtime: runtime,
       data: data,
-      widget: const FullyQualifiedWidgetName(
-          LibraryName(<String>['main']), 'welcome'),
+      widget: FullyQualifiedWidgetName(LibraryName(<String>['main']), name),
       onEvent: (String name, DynamicMap arguments) {
         debugPrint('user triggered event "$name" with data: $arguments');
       },
