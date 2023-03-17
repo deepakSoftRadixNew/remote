@@ -34,8 +34,8 @@ class _ExampleState extends State<Example> {
   final Runtime runtime = Runtime();
   final DynamicContent _data = DynamicContent();
 
-  bool isCustomUi = false;
-  // int _counter = 0;
+  bool isCustomUi = true;
+  int _counter = 0;
   String urlPrefix =
       'https://raw.githubusercontent.com/deepakSoftRadixNew/remote/main/remote_widget_libraries';
   @override
@@ -47,9 +47,8 @@ class _ExampleState extends State<Example> {
     //using core material
     runtime.update(const LibraryName(<String>['core', 'material']),
         createMaterialWidgets());
-    // _updateData();
+    _updateData();
     updateWidgets(
-      routeName: "counter_app1.rfw",
       runtime: runtime,
       urlPrefix: urlPrefix,
     ).then((value) {
@@ -60,12 +59,13 @@ class _ExampleState extends State<Example> {
     });
   }
 
-  // void _updateData() {
-  //   _data.update('counter', _counter.toString());
-  // }
+  void _updateData() {
+    _data.update('counter', _counter.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
+    log("message${runtime.hashCode}");
     return uiViewer();
   }
 
@@ -76,7 +76,7 @@ class _ExampleState extends State<Example> {
         runtime: runtime,
         data: _data,
         widget: const FullyQualifiedWidgetName(
-            LibraryName(<String>['main']), 'Alert2'),
+            LibraryName(<String>['main']), 'Alert'),
         onEvent: (String name, DynamicMap arguments) {
           // if (name == 'increment') {
           //   _counter += 1;
