@@ -11,8 +11,6 @@ import 'package:remote/ui/constants.dart';
 import 'package:remote/widget/update_widgets.dart';
 import 'package:rfw/rfw.dart';
 
-import 'ui/screens/welcome/welcome_screen.dart';
-
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -21,7 +19,7 @@ void main() {
       primaryColor: kPrimaryColor,
       scaffoldBackgroundColor: Colors.white,
     ),
-    home: WelcomeScreen(),
+    home: Example(),
   ));
 }
 
