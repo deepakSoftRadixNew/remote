@@ -17,6 +17,7 @@ dependencies:
   flutter_translate: ^4.0.3
   path_provider: ^2.0.13
   rfw: ^1.0.8
+  server_driven_ui: ^0.0.5
 
 flutter:
 

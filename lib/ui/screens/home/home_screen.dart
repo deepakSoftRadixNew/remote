@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:remote/ui/screens/welcome/welcome_screen.dart';
 
 class HomeView extends StatelessWidget {
   @override
@@ -22,14 +21,14 @@ class HomeView extends StatelessWidget {
                           children: [
                             InkWell(
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return WelcomeScreen();
-                                    },
-                                  ),
-                                );
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) {
+                                //       return WelcomeScreen(data: null,);
+                                //     },
+                                //   ),
+                                // );
                               },
                               child: CircleAvatar(
                                   backgroundImage:

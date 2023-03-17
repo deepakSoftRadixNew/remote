@@ -9,3 +9,12 @@
       LoginAndSignupBtn(),
       ],
     );
+
+     widget welcome2 = 
+      Column(
+      mainAxisAlignment: "center",
+      children: [ 
+      WelcomeImage(),
+      LoginAndSignupBtn(),
+      ],
+    );

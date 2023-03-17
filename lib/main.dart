@@ -7,9 +7,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:remote/ui/constants.dart';
 import 'package:remote/widget/update_widgets.dart';
 import 'package:rfw/rfw.dart';
+
+import 'ui/screens/welcome/welcome_screen.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -32,7 +35,7 @@ class Example extends StatefulWidget {
 
 class _ExampleState extends State<Example> {
   final Runtime runtime = Runtime();
-  final DynamicContent _data = DynamicContent();
+  final DynamicContent data = DynamicContent();
 
   bool isCustomUi = false;
   int _counter = 0;
@@ -65,26 +68,39 @@ class _ExampleState extends State<Example> {
 
   @override
   Widget build(BuildContext context) {
-    log("message${runtime.hashCode}");
     return uiViewer();
   }
 
   AnimatedSwitcher uiViewer() {
     Widget result = SizedBox();
     if (isCustomUi) {
-      result = RemoteWidget(
-        runtime: runtime,
-        data: _data,
-        widget: const FullyQualifiedWidgetName(
-            LibraryName(<String>['main']), 'Counter'),
-        onEvent: (String name, DynamicMap arguments) {
-          log("message onEvent");
-          // if (name == 'increment') {
-          //   _counter += 1;
-          //   _updateData();
-          // }
-        },
-      );
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return WelcomeScreen(
+                data: data,
+                runtime: runtime,
+              );
+            },
+          ),
+        );
+      });
+
+      // result = RemoteWidget(
+      //   runtime: runtime,
+      //   data: _data,
+      //   widget: const FullyQualifiedWidgetName(
+      //       LibraryName(<String>['main']), 'welcome'),
+      //   onEvent: (String name, DynamicMap arguments) {
+      //     log("message onEvent");
+      //     // if (name == 'increment') {
+      //     //   _counter += 1;
+      //     //   _updateData();
+      //     // }
+      //   },
+      // );
     } else {
       result = defaultUi(result: result);
     }
